@@ -864,7 +864,7 @@ export class Sidebar implements m.ClassComponent {
         },
         m(
             `header.${getCurrentChannel()}`,
-            m(`img[src=${globals.root}assets/brand.png].brand`),
+            // m(`img[src=${globals.root}assets/brand.png].brand`),
             m('button.sidebar-button',
               {
                 onclick: () => {
