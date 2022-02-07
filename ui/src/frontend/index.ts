@@ -138,6 +138,9 @@ function setupContentSecurityPolicy() {
       // TODO(b/201596551): this is required for Wasm after crrev.com/c/3179051
       // and should be replaced with 'wasm-unsafe-eval'.
       `'unsafe-eval'`,
+      // TODO: @zhot fix sagemaker hosts
+      //https://d-hoqlisagjrby.studio.us-east-1.sagemaker.aws/jupyter/default/proxy/6006
+      'https://*.sagemaker.aws',
       'https://*.google.com',
       'https://*.googleusercontent.com',
       'https://www.googletagmanager.com',
@@ -147,6 +150,8 @@ function setupContentSecurityPolicy() {
     'connect-src': [
       `'self'`,
       'http://127.0.0.1:*',  // Allow localhost
+      // TODO: @zhot fix sagemaker hosts
+      'https://*.sagemaker.aws',
       'https://www.google-analytics.com',
       'https://*.googleapis.com',  // For Google Cloud Storage fetches.
       'blob:',

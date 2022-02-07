@@ -59,7 +59,7 @@ export function maybeOpenTraceFromRoute(route: Route) {
     return;
   }
 
-  if (!route.page) {
+  if (route.page == '/file') {
     openTraceFromVizTracer();
     return;
   }
@@ -242,14 +242,23 @@ function openTraceFromAndroidBugTool() {
       });
 }
 
+// https://d-hoqlisagjrby.studio.us-east-1.sagemaker.aws/jupyter/default/proxy/6006/vizviewer_info
 function openTraceFromVizTracer() {
+  let url_prefix = ""
+  if (window.location.host.includes("sagemaker.aws")) {
+      url_prefix = "/jupyter/default/proxy/6006"
+  }
   // This is for VizTracer use only!
-  let url_promise = fetch("/vizviewer_info")
+    let url_promise = fetch(`${url_prefix}/vizviewer_info`)
   .then(data => {
     if (data.status == 200) {
-      return `http://${window.location.host}`
+      let url = `http://${window.location.host}`
+      if (window.location.host.includes("sagemaker.aws")) {
+        url += "/jupyter/default/proxy/6006"
+      }
+      return url
     } else {
-      return "http://127.0.0.1:9001"
+      return data.url.substr(0, data.url.lastIndexOf('/'))
     }
   })
   .catch(error => {
